@@ -1,60 +1,34 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 
 class App extends React.Component{  
-  state={ //state는 변하는 data를 저장하는 class이다.
-    count:0
-  };
-  add = () =>{
-    //this.state.count+=1; 이렇게 해봤자 render()는 refresh하지 않아서 변하지않음
-    //setState함수로 state객체의 값을 변경하고 render까지 가능하다
-
-    //this.setState({count:this.state.count+1});
-    //그러나 위코드도 좋은 코드는 아니다. state에 의존하게되면 몇가지 성능 문제 나중에 발생할 수 있다.
-    
-    this.setState(current=>({count: current.count+1}));
-    //current로 함수형식으로 불러와서 외부 상태에 의존하지 않는 방법을 사용한다.
-  };
-  minus = () =>{
-    this.setState(current=>({count: current.count-1}));
-  };
+  state={
+    isLoading: true,
+    movies:[]
+  }; //state에 사용할 변수를 미리 선언하지 않아도 된다. setState만 써도 됨.
+  //하지만 이렇게 써놓는 것이 코드 읽기에 편하기 때문에 선언하는 습관을 들이는 것이 좋겠다.
   
-    //component life cycle functions
-  //컴포넌트가 생성될 때, render 전에 실행되는 함수, render 후에 실행되는 함수, component가 update될 때 호출되는 함수도 있다.
-  //Mounting: 태어나는 것 Updating: 업데이트 될 때 Unmounting: 죽을 때(페이지 바뀔 때 또는 component 삭제)
 
-  /* Mounting - component가 mount될 때, screen에 표시될 때 constructor 호출*/
-  constructor(props){ //constructor는 클래스 생성될 때 실행. render보다 먼저 실행
-    super(props);
-    console.log("constructor");
-  }
-  //componentDidMount() - 컴포넌트가 render되고 나서 실행됨. render되었음을 알리는 함수
+  //componentDidMount에서 이론적으로 data를 fetch한다
   componentDidMount(){
-    console.log("render done.");
+    
+    console.log("DidMount start");
+    //6초 후에 익명함수 실행. setState 문법 
+    setTimeout(() => {
+      this.setState({isLoading : false});
+    }, 6000);
+    console.log("DidMount done"); //얘는 비동기식이라 setTimeout하는 동안 실행끝남.
   }
 
-  /* Updating: add, minus 함수처럼 state를 변화시킬 때 수행되는 함수들 */
-  //shouldComponentUpdate() - 업데이트 할지 말지 결정하는 함수
-  //componentDidUpdate() - 업데이트 후(update된 컴포넌트 render 후) 실행되는 함수
-  componentDidUpdate(){
-    console.log("update done")
-  }
+  render(){
+    console.log("render start");
+    /*this.state.isLoading 대신 그냥 isLoading 사용을 위한 전처리
+    ES6 문법임. isLoading은 this.state에서 온거다.*/
+    const{isLoading} = this.state; 
 
-  /* Unmounting - 컴포넌트 삭제 시 실행되는 함수들 다른 페이지로 이동할때도 실행 */
-  componentWillUnmount(){
-    console.log("Goodbye")
-  }
-
-
-
-  render(){ //react는 자동적으로 class component의 render method를 실행한다.
-    console.log("render")
     return (<div>
-      <h1>Im a class {this.state.count} component</h1>
-      <button onClick={this.add}>plus</button>
-      <button onClick={this.minus}>minus</button>
-      </div>)
+      {isLoading ? "Loading...": "We are ready"}
+    </div>);
   }
 }
 
