@@ -1,68 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Food({ name, picture, rating }) {
-  return (
-    <div>
-      <h2>I like {name}</h2>
-      <h3>rating : {rating} / 5.0</h3>
-      <img src={picture} alt={name} />
-    </div>
-  );
-}
 
-Food.propTypes = {
-  name:PropTypes.string.isRequired,
-  picture:PropTypes.string.isRequired,
-  rating:PropTypes.string.isRequired
-};
+class App extends React.Component{
+  state={ //state는 변하는 data를 저장하는 class이다.
+    count:0
+  };
+  add = () =>{
+    //this.state.count+=1; 이렇게 해봤자 render()는 refresh하지 않아서 변하지않음
+    //setState함수로 state객체의 값을 변경하고 render까지 가능하다
 
-const foodILike = [
-  {
-    id:1,
-    name: "Kimchi",
-    image:
-      "http://aeriskitchen.com/wp-content/uploads/2008/09/kimchi_bokkeumbap_02-.jpg"
-    ,rating:'5.0'
-  },
-  {
-    id:2,
-    name: "Samgyeopsal",
-    image:
-      "https://3.bp.blogspot.com/-hKwIBxIVcQw/WfsewX3fhJI/AAAAAAAAALk/yHxnxFXcfx4ZKSfHS_RQNKjw3bAC03AnACLcBGAs/s400/DSC07624.jpg"
-    ,rating:'5.0'
-    },
-  {
-    id:3,
-    name: "Bibimbap",
-    image:
-      "http://cdn-image.myrecipes.com/sites/default/files/styles/4_3_horizontal_-_1200x900/public/image/recipes/ck/12/03/bibimbop-ck-x.jpg?itok=RoXlp6Xb"
-      ,rating:'4.3'
-    },
-  {
-    id:4,
-    name: "Doncasu",
-    image:
-      "https://s3-media3.fl.yelpcdn.com/bphoto/7F9eTTQ_yxaWIRytAu5feA/ls.jpg"
-      ,rating:'4.7'
-    },
-  {
-    id:5,
-    name: "Kimbap",
-    image:
-      "http://cdn2.koreanbapsang.com/wp-content/uploads/2012/05/DSC_1238r-e1454170512295.jpg"
-      ,rating:'4.5'
-    }
-];
-
-function App() {
-  return (
-    <div>
-      {foodILike.map(dish => (
-        <Food key={dish.id} name={dish.name} picture={dish.image} rating={dish.rating}/>
-      ))}
-    </div>
-  );
+    //this.setState({count:this.state.count+1});
+    //그러나 위코드도 좋은 코드는 아니다. state에 의존하게되면 몇가지 성능 문제 나중에 발생할 수 있다.
+    
+    this.setState(current=>({count: current.count+1}));
+    //current로 함수형식으로 불러와서 외부 상태에 의존하지 않는 방법을 사용한다.
+  };
+  minus = () =>{
+    this.setState(current=>({count: current.count-1}));
+  };
+  render(){ //react는 자동적으로 class component의 render method를 실행한다.
+    return <div>
+      <h1>Im a class {this.state.count} component</h1>
+      <button onClick={this.add}>plus</button>
+      <button onClick={this.minus}>minus</button>
+      </div>
+  }
 }
 
 
