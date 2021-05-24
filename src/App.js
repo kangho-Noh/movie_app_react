@@ -3,6 +3,7 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import About from "./routes/About";
 import Navigation from "./components/Navigation";
+import "./App.css";
 
 //react-router-dom으로 라우터 만들기
 //리액트 라우터는 모든 라우팅 주소에 매치하면 다 렌더링한다.
