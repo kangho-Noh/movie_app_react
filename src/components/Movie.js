@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Movie.css";
 
@@ -6,23 +7,36 @@ import "./Movie.css";
 //css를 하기 위해서 style={{}}를 사용할 수 있다.
 function Movie({ id, year, title, summary, poster, genres }) {
   return (
-    <div className="movie">
-      <img src={poster} alt={title} title={title} />
-      <div className="movie__data">
-        <h3 className="movie__title">{title}</h3>
-        <h5 className="movie__year">{year}</h5>
-        <ul className="movie__genres">
-          {genres.map((genre, index) => (
-            //map은 (현재값, 인덱스) 두개의 아규먼트를 넘김
-            //key값이 없으면 오류가 나기때문에 index로 key를 만들어서 제공한다
-            <li key={index} className="genres__genre">
-              {genre}
-            </li>
-          ))}
-        </ul>
-        <p className="movie__summary">{summary.slice(0, 180) + "..."}</p>
+    <Link
+      to={{
+        pathname: "/movie-detail",
+        state: {
+          year,
+          title,
+          summary,
+          poster,
+          genres,
+        },
+      }}
+    >
+      <div className="movie">
+        <img src={poster} alt={title} title={title} />
+        <div className="movie__data">
+          <h3 className="movie__title">{title}</h3>
+          <h5 className="movie__year">{year}</h5>
+          <ul className="movie__genres">
+            {genres.map((genre, index) => (
+              //map은 (현재값, 인덱스) 두개의 아규먼트를 넘김
+              //key값이 없으면 오류가 나기때문에 index로 key를 만들어서 제공한다
+              <li key={index} className="genres__genre">
+                {genre}
+              </li>
+            ))}
+          </ul>
+          <p className="movie__summary">{summary.slice(0, 180) + "..."}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
