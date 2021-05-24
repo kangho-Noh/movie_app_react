@@ -20,13 +20,15 @@ import "./App.css";
 //BrowserRouter는 동적인 페이지, HashRouter는 정적인 페이지에 적합하다.
 //새로고침하면 경로를 찾지 못해서 에러가난다 / 새로고침해도 에러가 나지 않는다
 //github pages에서 설정하기 복잡하다 / github pages에서 설정하기 간편하다.
+
+// 라우팅할 때 /movie/:id라고 하면 임의 id로 라우팅이 가능하다.
 function App() {
   return (
     <HashRouter>
       <Navigation />
       <Route path="/" exact={true} component={Home} />
       <Route path="/about" component={About} />
-      <Route path="/movie-detail" component={Detail} />
+      <Route path="/movie/:id" component={Detail} />
     </HashRouter>
   );
 }

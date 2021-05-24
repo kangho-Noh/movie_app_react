@@ -1,9 +1,7 @@
 import React from "react";
 import "./About.css";
 
-//props를 사용하면 클릭한번으로 정보를 보낼 수 있다.
-function About(props) {
-  console.log(props);
+function About() {
   return (
     <div className="about__container">
       <span>

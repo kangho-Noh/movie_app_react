@@ -10,8 +10,6 @@ class Home extends React.Component {
   };
 
   getMovies = async () => {
-    console.log("API 불러오기 시작");
-
     const {
       data: {
         data: { movies },
@@ -25,12 +23,13 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
+    console.log("getMovies 함수 시작");
     this.getMovies();
-    console.log("API 불러오기 완료");
+    console.log("getMovies 함수 끝");
   }
 
   render() {
-    console.log("render start");
+    console.log("렌더링함수 시작");
     const { isLoading, movies } = this.state;
 
     return (
